@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+    letter-spacing: .6em;
+
+    background-image: url("../img/nightbackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img {
+    z-index: 1;
+}
+
+.btn {
+    background-color: blue;
+}
+
+#logo{
+    margin-left: 40%
+}
+
+#battle{
+    display: inline;
+    float: left;
+}
+
+.winner{
+    text-align: center;
+    display: inline-block;
+    float: top;
+}
+
+.attk-btn{
+    margin-left: 5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+#hp-bar-one{
+    display: inline;
+    margin-left: 2em;
+}
+.player-one{
+    margin-right: 15%;
+    float: right;
+}
+
+#hp-bar-two{
+    display: inline;
+    margin-left: 2em;
+    margin-bottom: 2em;
+}
+
+.player-two{
+    margin-left: 15%;
+    float: left;
+
+}
+
+.battle-img{
+    margin-left: 40%;
+    margin-top: 15%;
+    position: absolute;
+}
+
+#battle-btn{
+    background-color: transparent;
+    color: transparent;
+    border: none;
+}
