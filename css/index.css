@@ -8,42 +8,64 @@ body {
     background-size: cover;
 }
 
-img {
-    z-index: 1;
-}
+/*img {*/
+    /*z-index: 1;*/
+/*}*/
+
+/*h3{*/
+    /*background-color: yellow;*/
+/*}*/
 
 .btn {
     background-color: blue;
 }
 
+#reset-btn{
+    display: none;
+
+}
+
 #logo{
-    margin-left: 40%
+    margin-left: 33%
 }
 
-#battle{
-    display: inline;
-    float: left;
+#battle {
+    margin-top: 65%;
+    margin-left: 55%;
 }
 
-.winner{
-    text-align: center;
-    display: inline-block;
-    float: top;
+#battle-btn{
+    background-color: transparent;
+    color: transparent;
+    border: none;
 }
+
+.winner {
+    display: none;
+    margin-left: 31%;
+
+}
+
+/*.faint{*/
+    /*display: inline-block;*/
+    /*margin-left: 30%*/
+/*}*/
 
 .attk-btn{
     margin-left: 5em;
     margin-bottom: 1em;
     margin-top: 1em;
+    position:absolute;
+    top: 67%;
 }
 
 #hp-bar-one{
     display: inline;
     margin-left: 2em;
 }
+
 .player-one{
-    margin-right: 15%;
-    float: right;
+    margin-left: 5%
 }
 
 #hp-bar-two{
@@ -53,19 +75,25 @@ img {
 }
 
 .player-two{
-    margin-left: 15%;
-    float: left;
-
+    margin-left: 21%;
 }
 
-.battle-img{
-    margin-left: 40%;
-    margin-top: 15%;
+.player1Damage{
     position: absolute;
+    left: 29%;
+    top: 20%;
+
 }
 
-#battle-btn{
-    background-color: transparent;
-    color: transparent;
-    border: none;
+.player2Damage{
+    position: absolute;
+    right: 34%;
+    top: 20%;
 }
+
+.victory-dance{
+    margin-left: 40%;
+    margin-top: 10%;
+    display: none;
+}
+
