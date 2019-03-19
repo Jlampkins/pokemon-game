@@ -8,14 +8,6 @@ body {
     background-size: cover;
 }
 
-/*img {*/
-    /*z-index: 1;*/
-/*}*/
-
-/*h3{*/
-    /*background-color: yellow;*/
-/*}*/
-
 .btn {
     background-color: blue;
 }
@@ -45,11 +37,6 @@ body {
     margin-left: 31%;
 
 }
-
-/*.faint{*/
-    /*display: inline-block;*/
-    /*margin-left: 30%*/
-/*}*/
 
 .attk-btn{
     margin-left: 5em;
