@@ -6,7 +6,9 @@ body {
     background-image: url("../img/nightbackground.png");
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
 }
+
 
 .btn {
     background-color: blue;
@@ -76,6 +78,10 @@ body {
     position: absolute;
     right: 34%;
     top: 20%;
+}
+
+.poke-ball{
+    margin-top: 11em;
 }
 
 .victory-dance{
