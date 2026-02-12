@@ -7,6 +7,8 @@ let card1 = '';
 let card2 = '';
 let player1Hp = 0;
 let player2Hp = 0;
+let player1MaxHp = 0;
+let player2MaxHp = 0;
 let player1Attack = 0;
 let player1Attack2 = 0;
 let player2Attack = 0;
@@ -41,12 +43,9 @@ let missSound = new Audio('audio/Withdraw1.wav');
 
 /** music & enable attack button **/
 $("#battle-btn").click(function() {
-    // Only start if both cards are loaded
-    if($('.poke-ball').length === 0) {
-        $("#my_audio").get(0).play();
-        $('#C1attack1').removeAttr('disabled');
-        $('.attk-btn').css('visibility', 'visible');
-    }
+    $("#my_audio").get(0).play();
+    $('#C1attack1').removeAttr('disabled');
+    $('.attk-btn').css('visibility', 'visible');
 });
 hideElementsBasedOnPlayerTurn();
 /** gets player 2 info **/
@@ -54,20 +53,16 @@ setTimeout(function(){
     randomFromArr2.done(function(data) {
         console.log(data);
         card2 += `<img alt="pokemon" src="${data.card.imageUrl}"/>`;
-        // player1Hp = data.card.hp;
         player2Hp = data.card.hp;
+        player2MaxHp = data.card.hp;
         player2Attack = data.card.attacks[0].damage;
         if(data.card.attacks.length >= 2) {
             player2Attack2 = data.card.attacks[1].damage;
         }
         player2Name = data.card.name;
 
-        // $('#card1').html(card1);
-        $('.poke-ball').remove();
         $('#card2').html(card2);
-        // $('#hp-bar-one').css("background-color", "blue").html("HP " + player1Hp);
-        $('#hp-bar-two').css("background-color", "red").html("HP " + player2Hp);
-        // $('#C1attack1').html("Attack");
+        $('#hp-bar-two').css("background-color", "red").css("display", "block").html("<span>HP " + player2Hp + "</span>");
         $('#C2attack1').html("Attack").css("background-color","red");
 
         // Enable battle button once both cards loaded
@@ -80,7 +75,11 @@ setTimeout(function(){
         /** player two attack **/
         $("#C2attack1").click(function(){
 
-            $("#card2").animate({right: '500px'}).animate({right: "-50px"});
+            if(window.innerWidth <= 768) {
+                $("#card2").animate({top: '-200px'}).animate({top: "0px"});
+            } else {
+                $("#card2").animate({right: '500px'}).animate({right: "-50px"});
+            }
             let randomNum = Math.floor(Math.random() * Math.floor(5));
             // player1Hp -= player2Attack;
             console.log(randomNum);
@@ -94,7 +93,10 @@ setTimeout(function(){
                 }
             console.log(player2Attack);
             attackSound1.play();
-            $('#hp-bar-one').html("HP " + player1Hp);
+            let damagePercent = (1 - (player1Hp / player1MaxHp)) * 100;
+            $('#hp-bar-one').html("<span>HP " + player1Hp + "</span>");
+            $('#hp-bar-one').css('--damage-width', damagePercent + '%');
+            document.getElementById('hp-bar-one').style.setProperty('--damage-width', damagePercent + '%');
             $(".player2Damage").hide()
             } else if( randomNum === 1 || randomNum === 4){
                 // if(player2Attack2 === 0){
@@ -110,7 +112,9 @@ setTimeout(function(){
                     $(".player1Damage").html("-" + player2Attack2).css("background", "yellow").fadeIn(500).fadeOut(2000);
                 }
             attackSound2.play();
-            $('#hp-bar-one').html("HP " + player1Hp);
+            let damagePercent = (1 - (player1Hp / player1MaxHp)) * 100;
+            $('#hp-bar-one').html("<span>HP " + player1Hp + "</span>");
+            document.getElementById('hp-bar-one').style.setProperty('--damage-width', damagePercent + '%');
             $(".player2Damage").hide()
             }else if(randomNum === 2){
                 missSound.play();
@@ -134,21 +138,16 @@ setTimeout(function(){
         console.log(data);
         card1 += `<img alt="" src="${data.card.imageUrl}"/>`;
         player1Hp = data.card.hp;
+        player1MaxHp = data.card.hp;
         player1Attack = data.card.attacks[0].damage;
         if(data.card.attacks.length >= 2) {
             player1Attack2 = data.card.attacks[1].damage;
         }
         player1Name = data.card.name;
-        // console.log(data.card.attacks[0].damage);
-        // console.log(data.card.attacks[1].damage);
 
-        $('.poke-ball').remove();
         $('#card1').html(card1);
-        // $('#card2').html(card2);
-        $('#hp-bar-one').css("background-color", "blue").html("HP " + player1Hp);
-        // $('#hp-bar-two').html("HP " + player2Hp);
+        $('#hp-bar-one').css("background-color", "blue").css("display", "block").html("<span>HP " + player1Hp + "</span>");
         $('#C1attack1').css("background-color", "blue").html("Attack");
-        // $('#C2attack1').css("background-color","red").html("Attack");
 
         // Enable battle button once both cards loaded
         if($('#card2').children().length > 0) {
@@ -159,8 +158,11 @@ setTimeout(function(){
 
         /** player one attack **/
         $("#C1attack1").click(function() {
-            $("#card1").animate({left: '500px'}).animate({left: "0px"});
-            // $("#card1").animate({left: "0px"});
+            if(window.innerWidth <= 768) {
+                $("#card1").animate({top: '200px'}).animate({top: "0px"});
+            } else {
+                $("#card1").animate({left: '500px'}).animate({left: "0px"});
+            }
             let randomNum = Math.floor(Math.random() * Math.floor(5));
             console.log(randomNum);
             // choosing attack 1 or 2 base off random number
@@ -173,7 +175,9 @@ setTimeout(function(){
                     $(".player2Damage").html("-" + player1Attack).css("background", "yellow").fadeIn(500).fadeOut(2000);
                 }
                 attackSound1.play();
-                $('#hp-bar-two').html("HP " + player2Hp);
+                let damagePercent = (1 - (player2Hp / player2MaxHp)) * 100;
+                $('#hp-bar-two').html("<span>HP " + player2Hp + "</span>");
+                document.getElementById('hp-bar-two').style.setProperty('--damage-width', damagePercent + '%');
                 $(".player1Damage").hide();
 
             } else if( randomNum === 1 || randomNum === 4) {
@@ -188,7 +192,9 @@ setTimeout(function(){
                     $(".player2Damage").html("-" + player1Attack2).css("background", "yellow").fadeIn(500).fadeOut(2000);
                 }
                 attackSound2.play();
-                $('#hp-bar-two').html("HP " + player2Hp);
+                let damagePercent = (1 - (player2Hp / player2MaxHp)) * 100;
+                $('#hp-bar-two').html("<span>HP " + player2Hp + "</span>");
+                document.getElementById('hp-bar-two').style.setProperty('--damage-width', damagePercent + '%');
                 $(".player1Damage").hide();
             }else if(randomNum === 2){
                 missSound.play();

@@ -2,13 +2,20 @@ body {
     margin: 0;
     padding: 0;
     letter-spacing: .6em;
-
     background-image: url("../img/nightbackground.png");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
 
 .btn {
     background-color: blue;
@@ -16,16 +23,22 @@ body {
 
 #reset-btn{
     display: none;
-
+    margin: 20px auto;
 }
 
 #logo{
-    margin-left: 33%
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#logo img {
+    max-width: 300px;
+    width: 100%;
 }
 
 #battle {
-    margin-top: 65%;
-    margin-left: 55%;
+    max-width: 200px;
+    width: 100%;
 }
 
 #battle-btn{
@@ -36,63 +49,128 @@ body {
 
 .winner {
     display: none;
-    margin-left: 31%;
+    text-align: center;
+    margin: 20px 0;
+}
 
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.player-one, .player-two {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.battle-img {
+    visibility: hidden;
+    flex-shrink: 0;
 }
 
 .attk-btn{
-    margin-left: 5em;
-    margin-bottom: 1em;
     margin-top: 1em;
-    position:absolute;
-    top: 67%;
     visibility: hidden;
+    height: 50px;
 }
 
-#hp-bar-one{
-    display: inline;
-    margin-left: 2em;
+#hp-bar-one, #hp-bar-two{
+    display: none;
+    margin: 10px auto;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
 }
 
-.player-one{
-    margin-left: 5%
+#hp-bar-one::before, #hp-bar-two::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    transition: width 0.5s ease;
+    width: var(--damage-width, 0);
 }
 
-#hp-bar-two{
-    display: inline;
-    margin-left: 2em;
-    margin-bottom: 2em;
-}
-
-.player-two{
-    margin-left: 21%;
+#hp-bar-one span, #hp-bar-two span {
+    position: relative;
+    z-index: 1;
 }
 
 .player1Damage{
     position: absolute;
-    left: 29%;
-    top: 20%;
+    left: 20%;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 10;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .player2Damage{
     position: absolute;
-    right: 34%;
-    top: 20%;
+    right: 20%;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 10;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .poke-ball{
-    margin-top: 11em;
+    max-width: 200px;
+    width: 100%;
+}
+
+#card1 img, #card2 img {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+}
+
+#card1, #card2 {
+    position: relative;
+    min-height: 350px;
+}
+
+.loading-pokeball {
+    max-width: 150px;
+    width: 100%;
 }
 
 .victory-dance{
-    margin-left: 40%;
-    margin-top: 10%;
+    text-align: center;
+    margin: 20px 0;
     display: none;
 }
 
-.battle-img{
-    visibility: hidden;
+.victory-dance img {
+    max-width: 300px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+    
+    .player-one, .player-two {
+        width: 100%;
+    }
+    
+    .player1Damage, .player2Damage {
+        left: 50%;
+        right: auto;
+        transform: translate(-50%, -50%);
+    }
 }
 
