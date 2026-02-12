@@ -41,8 +41,12 @@ let missSound = new Audio('audio/Withdraw1.wav');
 
 /** music & enable attack button **/
 $("#battle-btn").click(function() {
-    $("#my_audio").get(0).play();
-    $('#C1attack1').removeAttr('disabled');
+    // Only start if both cards are loaded
+    if($('.poke-ball').length === 0) {
+        $("#my_audio").get(0).play();
+        $('#C1attack1').removeAttr('disabled');
+        $('.attk-btn').css('visibility', 'visible');
+    }
 });
 hideElementsBasedOnPlayerTurn();
 /** gets player 2 info **/
@@ -65,6 +69,11 @@ setTimeout(function(){
         $('#hp-bar-two').css("background-color", "red").html("HP " + player2Hp);
         // $('#C1attack1').html("Attack");
         $('#C2attack1').html("Attack").css("background-color","red");
+
+        // Enable battle button once both cards loaded
+        if($('#card1').children().length > 0) {
+            $('.battle-img').css('visibility', 'visible');
+        }
 
         hideElementsBasedOnPlayerTurn();
 
@@ -140,6 +149,11 @@ setTimeout(function(){
         // $('#hp-bar-two').html("HP " + player2Hp);
         $('#C1attack1').css("background-color", "blue").html("Attack");
         // $('#C2attack1').css("background-color","red").html("Attack");
+
+        // Enable battle button once both cards loaded
+        if($('#card2').children().length > 0) {
+            $('.battle-img').css('visibility', 'visible');
+        }
 
         hideElementsBasedOnPlayerTurn();
 

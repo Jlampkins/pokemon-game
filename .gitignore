@@ -1,3 +1,4 @@
 idea/*
-*.mp3
-*.wav
+node_modules/
+package-lock.json
+.vs/

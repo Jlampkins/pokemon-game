@@ -46,6 +46,7 @@ body {
     margin-top: 1em;
     position:absolute;
     top: 67%;
+    visibility: hidden;
 }
 
 #hp-bar-one{
@@ -71,13 +72,14 @@ body {
     position: absolute;
     left: 29%;
     top: 20%;
-
+    z-index: 10;
 }
 
 .player2Damage{
     position: absolute;
     right: 34%;
     top: 20%;
+    z-index: 10;
 }
 
 .poke-ball{
@@ -88,5 +90,9 @@ body {
     margin-left: 40%;
     margin-top: 10%;
     display: none;
+}
+
+.battle-img{
+    visibility: hidden;
 }
 
