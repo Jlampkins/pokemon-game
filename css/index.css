@@ -160,17 +160,43 @@ body {
 
 @media (max-width: 768px) {
     .row {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: nowrap;
     }
     
     .player-one, .player-two {
-        width: 100%;
+        min-width: 120px;
+        flex: 1;
+    }
+    
+    #card1 img, #card2 img {
+        max-width: 150px;
+    }
+    
+    #card1, #card2 {
+        min-height: 200px;
+    }
+    
+    .battle-img {
+        flex-shrink: 1;
+    }
+    
+    #battle {
+        max-width: 100px;
+    }
+    
+    #logo img {
+        max-width: 200px;
     }
     
     .player1Damage, .player2Damage {
-        left: 50%;
-        right: auto;
-        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+    }
+    
+    #hp-bar-one, #hp-bar-two {
+        width: 100px;
+        font-size: 0.8em;
+        padding: 3px 5px;
     }
 }
 

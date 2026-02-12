@@ -75,11 +75,8 @@ setTimeout(function(){
         /** player two attack **/
         $("#C2attack1").click(function(){
 
-            if(window.innerWidth <= 768) {
-                $("#card2").animate({top: '-200px'}).animate({top: "0px"});
-            } else {
-                $("#card2").animate({right: '500px'}).animate({right: "-50px"});
-            }
+            let distance = window.innerWidth <= 768 ? '200px' : '500px';
+            $("#card2").animate({right: distance}).animate({right: "0px"});
             let randomNum = Math.floor(Math.random() * Math.floor(5));
             // player1Hp -= player2Attack;
             console.log(randomNum);
@@ -158,11 +155,8 @@ setTimeout(function(){
 
         /** player one attack **/
         $("#C1attack1").click(function() {
-            if(window.innerWidth <= 768) {
-                $("#card1").animate({top: '200px'}).animate({top: "0px"});
-            } else {
-                $("#card1").animate({left: '500px'}).animate({left: "0px"});
-            }
+            let distance = window.innerWidth <= 768 ? '200px' : '500px';
+            $("#card1").animate({left: distance}).animate({left: "0px"});
             let randomNum = Math.floor(Math.random() * Math.floor(5));
             console.log(randomNum);
             // choosing attack 1 or 2 base off random number
