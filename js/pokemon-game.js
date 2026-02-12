@@ -37,9 +37,9 @@ let random = Math.floor(Math.random() * arr.length);
 let random2 = Math.floor(Math.random() * arr.length);
 let randomFromArr1 = arr[random];
 let randomFromArr2 = arr[random2];
-let attackSound1 = new Audio('audio/Slam.wav');
-let attackSound2 = new Audio('audio/MegaKick.wav');
-let missSound = new Audio('audio/Withdraw1.wav');
+let attackSound1 = new Audio('audio/slam.wav');
+let attackSound2 = new Audio('audio/megakick.wav');
+let missSound = new Audio('audio/withdraw1.wav');
 
 /** music & enable attack button **/
 $("#battle-btn").click(function() {
