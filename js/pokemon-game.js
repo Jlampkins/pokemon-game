@@ -42,20 +42,24 @@ let sfxMuted = false;
 let player1Poisoned = { active: false, damage: 0, turnsLeft: 0 };
 let player2Poisoned = { active: false, damage: 0, turnsLeft: 0 };
 
+// Sound button toggle
 $("#sound-btn").click(function() {
     $("#sound-menu").toggle();
 });
 
+// Music toggle handler
 $("#music-toggle").change(function() {
     musicMuted = !this.checked;
     if(musicMuted) $("#my_audio").get(0).pause();
     else $("#my_audio").get(0).play();
 });
 
+// Sound effects toggle handler
 $("#sfx-toggle").change(function() {
     sfxMuted = !this.checked;
 });
 
+// Summons a random helper Pokemon for Call for Family attack
 function callForFamily(excludePokemon) {
     let availablePokemon = arr.filter(p => p !== excludePokemon);
     let helper = availablePokemon[Math.floor(Math.random() * availablePokemon.length)];
@@ -119,6 +123,14 @@ $("#C2attack1").click(function(){
         document.getElementById('hp-bar-two').style.setProperty('--damage-width', damagePercent + '%');
         player2Poisoned.turnsLeft--;
         if(player2Poisoned.turnsLeft === 0) player2Poisoned.active = false;
+        if(player2Hp <= 0) {
+            setTimeout(() => {
+                checkPlayerHp();
+                showPlayAgainBtn();
+                victoryDance();
+            }, 1200);
+            return;
+        }
         setTimeout(continueAttack, 1200);
         return;
     }
@@ -141,67 +153,67 @@ $("#C2attack1").click(function(){
     continueAttack();
     
     function continueAttack() {
-    let randomNum = Math.floor(Math.random() * Math.floor(5));
-    let distance = window.innerWidth <= 768 ? '200px' : '500px';
-    let attackDamage = player2Attack;
-    let attackDamage2 = player2Attack2;
-    let selectedAttackIndex = (randomNum === 0 || randomNum === 3) ? 0 : 1;
-    let selectedAttackData = data2.attacks[selectedAttackIndex] || data2.attacks[0];
-    let attackName = selectedAttackData.name;
-    
-    if(selectedAttackData.heal && randomNum !== 2) {
-        player2Hp = Math.min(player2Hp + parseInt(selectedAttackData.heal), player2MaxHp);
-        $(".player2Damage").html("+" + selectedAttackData.heal + " ❤️").css("background", "lightgreen").fadeIn(300).fadeOut(1000);
-        let healPercent = (1 - (player2Hp / player2MaxHp)) * 100;
-        $('#hp-bar-two').html("<span>HP " + player2Hp + "</span>");
-        document.getElementById('hp-bar-two').style.setProperty('--damage-width', healPercent + '%');
-        setTimeout(() => {
-            player2Turn = false;
-            player1Turn = true;
-            hideElementsBasedOnPlayerTurn();
-        }, 1200);
-        return;
-    }
-    
-    if(selectedAttackData.summon && randomNum !== 2) {
-        let helper = callForFamily(randomFromArr2);
-        $(".player2Damage").html(attackName).css("background", "lightgreen").fadeIn(200).fadeOut(600);
-        setTimeout(() => {
-            $("#card2").html(`<img alt="helper" src="${helper.pokemon.imageUrl}"/>`);
-            $(".player2Damage").html(helper.name + "!").css("background", "lightblue").fadeIn(200).fadeOut(600);
+        let randomNum = Math.floor(Math.random() * Math.floor(5));
+        let distance = window.innerWidth <= 768 ? '200px' : '500px';
+        let attackDamage = player2Attack;
+        let attackDamage2 = player2Attack2;
+        let selectedAttackIndex = (randomNum === 0 || randomNum === 3) ? 0 : 1;
+        let selectedAttackData = data2.attacks[selectedAttackIndex] || data2.attacks[0];
+        let attackName = selectedAttackData.name;
+
+        if (selectedAttackData.heal && randomNum !== 2) {
+            player2Hp = Math.min(player2Hp + parseInt(selectedAttackData.heal), player2MaxHp);
+            $(".player2Damage").html("+" + selectedAttackData.heal + " ❤️").css("background", "lightgreen").fadeIn(300).fadeOut(1000);
+            let healPercent = (1 - (player2Hp / player2MaxHp)) * 100;
+            $('#hp-bar-two').html("<span>HP " + player2Hp + "</span>");
+            document.getElementById('hp-bar-two').style.setProperty('--damage-width', healPercent + '%');
             setTimeout(() => {
-                $(".player2Damage").html(helper.attackName).css("background", "lightgreen").fadeIn(200).fadeOut(600);
+                player2Turn = false;
+                player1Turn = true;
+                hideElementsBasedOnPlayerTurn();
+            }, 1200);
+            return;
+        }
+
+        if (selectedAttackData.summon && randomNum !== 2) {
+            let helper = callForFamily(randomFromArr2);
+            $(".player2Damage").html(attackName).css("background", "lightgreen").fadeIn(200).fadeOut(600);
+            setTimeout(() => {
+                $("#card2").html(`<img alt="helper" src="${helper.pokemon.imageUrl}"/>`);
+                $(".player2Damage").html(helper.name + "!").css("background", "lightblue").fadeIn(200).fadeOut(600);
                 setTimeout(() => {
-                    $("#card2").animate({right: distance}, 400, 'swing', function() {
-                        if(randomNum !== 2 && !sfxMuted) {
-                            if(randomNum === 0 || randomNum === 3) attackSound1.play();
-                            else attackSound2.play();
-                        }
-                    }).animate({right: "0px"}, 400, 'swing');
-                    attackDamage = helper.damage;
-                    attackDamage2 = helper.damage;
+                    $(".player2Damage").html(helper.attackName).css("background", "lightgreen").fadeIn(200).fadeOut(600);
                     setTimeout(() => {
-                        $("#card2").html(card2);
-                        executeAttack();
-                    }, 800);
+                        $("#card2").animate({ right: distance }, 400, 'swing', function () {
+                            if (randomNum !== 2 && !sfxMuted) {
+                                if (randomNum === 0 || randomNum === 3) attackSound1.play();
+                                else attackSound2.play();
+                            }
+                        }).animate({ right: "0px" }, 400, 'swing');
+                        attackDamage = helper.damage;
+                        attackDamage2 = helper.damage;
+                        setTimeout(() => {
+                            $("#card2").html(card2);
+                            executeAttack();
+                        }, 800);
+                    }, 600);
                 }, 600);
             }, 600);
+            return;
+        }
+
+        $(".player2Damage").html(attackName).css("background", "lightgreen").fadeIn(200).fadeOut(600);
+        setTimeout(() => {
+            $("#card2").animate({ right: distance }, 400, 'swing', function () {
+                if (randomNum !== 2 && !sfxMuted) {
+                    if (randomNum === 0 || randomNum === 3) attackSound1.play();
+                    else attackSound2.play();
+                }
+            }).animate({ right: "0px" }, 400, 'swing');
+            setTimeout(() => executeAttack(), 800);
         }, 600);
-        return;
-    }
     
-    $(".player2Damage").html(attackName).css("background", "lightgreen").fadeIn(200).fadeOut(600);
-    setTimeout(() => {
-        $("#card2").animate({right: distance}, 400, 'swing', function() {
-            if(randomNum !== 2 && !sfxMuted) {
-                if(randomNum === 0 || randomNum === 3) attackSound1.play();
-                else attackSound2.play();
-            }
-        }).animate({right: "0px"}, 400, 'swing');
-        setTimeout(() => executeAttack(), 800);
-    }, 600);
-    
-    function executeAttack() {
+        function executeAttack() {
         if(randomNum === 0 || randomNum === 3){
             if(attackDamage === ''){
                 player1Hp = player1Hp - attackDamage2;
@@ -246,7 +258,7 @@ $("#C2attack1").click(function(){
         checkPlayerHp();
         showPlayAgainBtn();
         victoryDance();
-    }
+        }
     }
 });
 
@@ -260,6 +272,14 @@ $("#C1attack1").click(function() {
         document.getElementById('hp-bar-one').style.setProperty('--damage-width', damagePercent + '%');
         player1Poisoned.turnsLeft--;
         if(player1Poisoned.turnsLeft === 0) player1Poisoned.active = false;
+        if(player1Hp <= 0) {
+            setTimeout(() => {
+                checkPlayerHp();
+                showPlayAgainBtn();
+                victoryDance();
+            }, 1200);
+            return;
+        }
         setTimeout(continueAttack, 1200);
         return;
     }
@@ -385,10 +405,11 @@ $("#C1attack1").click(function() {
         checkPlayerHp();
         showPlayAgainBtn();
         victoryDance();
-    }
+        }
     }
 });
 
+// Checks if either player's HP is 0 or below and displays winner
 function checkPlayerHp() {
     let sound1 = new Audio('audio/victory.mp3');
     if (player2Hp <= 0) {
@@ -419,6 +440,7 @@ function checkPlayerHp() {
     }
 }
 
+// Displays victory dance GIF for the winning Pokemon
 function victoryDance() {
     if (player1Hp <= 0 && randomFromArr2 === pika) {
         $(".victory-dance").html("<img src=" + './img/pika2.gif' + " " + "alt=" + 'pokemon' + ">").css("display", "inline");
@@ -475,6 +497,7 @@ function victoryDance() {
     }
 }
 
+// Shows the Play Again button when game ends
 function showPlayAgainBtn() {
     if (player1Hp <= 0 || player2Hp <= 0) {
         $("#reset-btn").css("display", "inline");
@@ -484,6 +507,7 @@ function showPlayAgainBtn() {
     });
 }
 
+// Shows/hides attack buttons based on whose turn it is
 function hideElementsBasedOnPlayerTurn() {
     if(player1Turn === true) {
         $("#C2attack1").hide();
