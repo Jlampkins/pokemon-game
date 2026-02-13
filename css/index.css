@@ -26,6 +26,29 @@ body {
     margin: 20px auto;
 }
 
+#sound-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+#sound-menu {
+    position: fixed;
+    top: 60px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#sound-menu label {
+    display: block;
+    color: white;
+    margin: 5px 0;
+}
+
 #logo{
     text-align: center;
     margin-bottom: 20px;
@@ -108,7 +131,7 @@ body {
 
 .player1Damage{
     position: absolute;
-    left: 20%;
+    left: 30%;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
@@ -118,7 +141,7 @@ body {
 
 .player2Damage{
     position: absolute;
-    right: 20%;
+    right: 30%;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;

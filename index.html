@@ -20,13 +20,18 @@
             <audio id="my_audio" src="audio/battlemusic.mp3" loop="loop"></audio>
 
             <div id="logo"><img src="./img/pokelogo_50.png" alt="pokemon-font" border="0"></div>
+            <button id="sound-btn" class="btn btn-secondary">🔊</button>
+            <div id="sound-menu" style="display:none;">
+                <label><input type="checkbox" id="music-toggle" checked> Music</label>
+                <label><input type="checkbox" id="sfx-toggle" checked> Sound Effects</label>
+            </div>
             <div class="winner"></div>
             <!-- card 1 -->
             <div class="row">
                 <div class="player-one">
                     <h3 id="hp-bar-one"></h3>
                     <div class="player1Damage"></div>
-                    <div id="card1"><img class="loading-pokeball" src="./img/pokeball.gif" alt="loading" /></div>
+                    <div id="card1"><img class="loading-pokeball" src="./img/pokeballopen.gif" alt="loading" /></div>
                     <div class="attk-btn rounded"><button disabled title="Click battle to play!" id="C1attack1" class="btn">Attack</button></div>
                 </div>
                 <!-- Battle Btn -->
@@ -38,7 +43,7 @@
                 <div class="player-two">
                     <h3 id="hp-bar-two"></h3>
                     <div class="player2Damage"></div>
-                    <div id="card2"><img class="loading-pokeball" src="./img/pokeball.gif" alt="loading" /></div>
+                    <div id="card2"><img class="loading-pokeball" src="./img/pokeballopen.gif" alt="loading" /></div>
                     <div class="attk-btn rounded"><button id="C2attack1" class="btn"></button></div>
                 </div>
             </div>
@@ -55,6 +60,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
         <!-- js links -->
+        <script src="./js/card-data.js"></script>
         <script src="./js/pokemon-game.js"></script>
         <!--</div>-->
     </body>
